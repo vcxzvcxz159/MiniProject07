@@ -33,7 +33,7 @@
 
 <div style="width: 98%; margin-left: 10px;">
 
-<form name="detailForm" action="/listSale.do" method="post">
+<form name="detailForm" action="/purchase/listSale" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -83,11 +83,11 @@
 	<c:set var="i" value="${i+1}" />
 	<tr class="ct_list_pop">
 		<td align="center">
-			<a href="/getProduct.do?prodNo=${purchase.purchaseProd.prodNo}">${purchase.purchaseProd.prodName}</a>
+			<a href="/product/getProduct?prodNo=${purchase.purchaseProd.prodNo}">${purchase.purchaseProd.prodName}</a>
 		</td>
 		<td></td>
 		<td align="left">
-			<a href="/getUser.do?userId=${purchase.buyer.userId}">${purchase.buyer.userId}</a>
+			<a href="/user/getUser?userId=${purchase.buyer.userId}">${purchase.buyer.userId}</a>
 		</td>
 		<td></td>
 		<td align="left">${purchase.receiverName}</td>

@@ -23,7 +23,7 @@
 <script type="text/javascript">
 <!--
 function fncAddPurchase() {
-	document.addPurchase.action='/addPurchaseView.do';
+	document.addPurchase.action='/purchase/addPurchase';
 	document.addPurchase.submit();
 }
 -->

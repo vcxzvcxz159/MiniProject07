@@ -24,7 +24,7 @@
 <script type="text/javascript">
 <!--
 function fncUpdatePurchase() {
-	document.updatePurchase.action='/updatePurchaseView.do';
+	document.updatePurchase.action='/purchase/updatePurchaseView';
 	document.updatePurchase.submit();
 }
 -->

@@ -39,7 +39,7 @@
 
 <div style="width: 98%; margin-left: 10px;">
 
-<form name="detailForm" action="/listPurchase.do" method="post">
+<form name="detailForm" action="/purchase/listPurchase" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -109,11 +109,11 @@
 			<td></td>
 			<td align="left"> 
 			<c:if test="${fn:trim(purchase.tranCode) == '1'}">
-					<a href="/updatePurchase.do?tranNo=${purchase.tranNo}&prodNo=${purchase.purchaseProd.prodNo}">수정</a>
+					<a href="/purchase/updatePurchase?tranNo=${purchase.tranNo}&prodNo=${purchase.purchaseProd.prodNo}">수정</a>
 			</c:if>
 				
 			<c:if test="${fn:trim(purchase.tranCode) == '2'}">
-					<a href="/updateTranCode.do?prodNo=${purchase.purchaseProd.prodNo}&tranCode=3&menu=search">배송완료</a>
+					<a href="/purchase/updateTranCode?prodNo=${purchase.purchaseProd.prodNo}&tranCode=3&menu=search">배송완료</a>
 			</c:if>
 			</td>
 		</tr>
