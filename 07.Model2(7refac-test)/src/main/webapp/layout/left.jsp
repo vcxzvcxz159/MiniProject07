@@ -1,16 +1,6 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
 
-<%@ page import="com.model2.mvc.service.domain.User" %>
-
-<%
-	User vo=(User)session.getAttribute("user");
-
-	String role="";
-
-	if(vo != null) {
-		role=vo.getRole();
-	}
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
@@ -31,108 +21,90 @@ function history(){
 
 <!--menu 01 line-->
 <tr>
-<td valign="top"> 
-	<table  border="0" cellspacing="0" cellpadding="0" width="159" >	
-		<tr>
-		<%
-			if(vo != null){
-		%>
-		<tr>
-		<td class="Depth03">
-			<a href="/getUser.do?userId=<%=vo.getUserId() %>" target="rightFrame">개인정보조회</a>
-		</td>
-		</tr>
-		<%
-			}
-		%>
-		<%
-			if(role.equals("admin")){
-		%>
-		<tr>
-		<td class="Depth03" >
-			<a href="/listUser.do" target="rightFrame">회원정보조회</a>
-		</td>
-		</tr>
-		<%
-			}
-		%>
-		<tr>
-			<td class="DepthEnd">&nbsp;</td>
-		</tr>
-	</table>
-</td>
+	<td valign="top"> 
+		<table  border="0" cellspacing="0" cellpadding="0" width="159" >	
+			<tr>
+				<c:if test="${ !empty user }">
+					<tr>
+						<td class="Depth03">
+							<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+							<a href="/getUser.do?userId=${user.userId}" target="rightFrame">개인정보조회</a>
+							////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+							<a href="/user/getUser?userId=${user.userId}" target="rightFrame">개인정보조회</a>
+						</td>
+					</tr>
+				</c:if>
+			
+				<c:if test="${user.role == 'admin'}">
+					<tr>
+						<td class="Depth03" >
+							<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+							<a href="/listUser.do" target="rightFrame">회원정보조회</a>
+							////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+							<a href="/user/listUser" target="rightFrame">회원정보조회</a>
+						</td>
+					</tr>
+				</c:if>
+			
+				<tr>
+					<td class="DepthEnd">&nbsp;</td>
+				</tr>
+		</table>
+	</td>
 </tr>
 
-	<%
-		if(role.equals("admin")){
-	%>
 <!--menu 02 line-->
-<tr>
-<td valign="top"> 
-	<table  border="0" cellspacing="0" cellpadding="0" width="159">
-		<tr>
-			<td class="Depth03">
-				<a href="../product/addProductView.jsp;" target="rightFrame">판매상품등록</a>
-			</td>
-		</tr>
-		<td class="Depth03">
-				<a href="/listProduct.do?menu=manage" target="rightFrame">판매상품관리</a>
-			</td>
-		</tr>
-		<tr>
-			<td class="Depth03">
-				<a href="/listSale.do?menu=manage" target="rightFrame">전체구매목록</a>
-			</td>
-		</tr>
-		<tr>
-			<td class="DepthEnd">&nbsp;</td>
-		</tr>
-	</table>
-</td>
-</tr>
-	<%
-				}
-	%>
+<c:if test="${user.role == 'admin'}">
+	<tr>
+		<td valign="top"> 
+			<table  border="0" cellspacing="0" cellpadding="0" width="159">
+				<tr>
+					<td class="Depth03">
+						<a href="../product/addProductView.jsp;" target="rightFrame">판매상품등록</a>
+					</td>
+				</tr>
+				<tr>
+					<td class="Depth03">
+						<a href="/listProduct.do?menu=manage"  target="rightFrame">판매상품관리</a>
+					</td>
+				</tr>
+				<tr>
+					<td class="DepthEnd">&nbsp;</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</c:if>
 
 <!--menu 03 line-->
 <tr>
-<td valign="top">
-	<table  border="0" cellspacing="0" cellpadding="0" width="159">
-		<tr>
-			<td class="Depth03">
-				<a href="/listProduct.do?menu=search" target="rightFrame">상 품 검 색</a>
-			</td>
-		</tr>
-		<%
-			if(vo != null){
-				if(role.equals("user")){
-		%>
-		<tr>
-			<td class="Depth03">
-				<a href="/listPurchase.do" target="rightFrame">구매이력조회</a>
-			</td>
-		</tr>
-		<%
-				}
-		%>
-		<tr>
-			<td class="Depth03">
-				<a href="/listBasket.do" target="rightFrame">장바구니 조회</a>
-			</td>
-		</tr>
-		<%} %>
-		<tr>
-		<td class="DepthEnd">&nbsp;</td>
-		</tr>
-		<tr>
-			<td class="Depth03">
-				<a href="javascript:history()">최근 본 상품</a>
-			</td>
-		</tr>
-	</table>
-</td>
+	<td valign="top"> 
+		<table  border="0" cellspacing="0" cellpadding="0" width="159">
+			<tr>
+				<td class="Depth03">
+					<a href="/listProduct.do?menu=search" target="rightFrame">상 품 검 색</a>
+				</td>
+			</tr>
+			
+			<c:if test="${ !empty user && user.role == 'user'}">
+			<tr>
+				<td class="Depth03">
+					<a href="/listPurchase.do"  target="rightFrame">구매이력조회</a>
+				</td>
+			</tr>
+			</c:if>
+			
+			<tr>
+				<td class="DepthEnd">&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="Depth03"><a href="javascript:history()">최근 본 상품</a></td>
+			</tr>
+		</table>
+	</td>
 </tr>
 
 </table>
+
 </body>
 </html>
