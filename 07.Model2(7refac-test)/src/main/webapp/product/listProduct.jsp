@@ -64,7 +64,7 @@
 
 <div style="width:98%; margin-left:10px;">
 
-<form name="detailForm" action="/listProduct.do" method="post">
+<form name="detailForm" action="/product/listProduct" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -175,7 +175,7 @@
 				<td align="left">
 					
 					<c:if test="${!empty user}">
-						<a href="/getProduct.do?prodNo=${product.prodNo}&menu=${param.menu}">${product.prodName}</a>
+						<a href="/product/getProduct?prodNo=${product.prodNo}&menu=${param.menu}">${product.prodName}</a>
 						
 					</c:if>
 					

@@ -48,10 +48,10 @@ public class UserController {
 	
 	//@RequestMapping("/addUserView.do")
 	//public String addUserView() throws Exception{
-	@RequestMapping(value="addUser", method=RequestMethod.GET)
+	@RequestMapping(value="/addUser", method=RequestMethod.GET)
 	public String addUser() throws Exception {
 
-		System.out.println("/addUserView.do");
+		System.out.println("/addUser method = GET");
 		
 		return "redirect:/user/addUserView.jsp";
 	}
@@ -59,7 +59,7 @@ public class UserController {
 	@RequestMapping(value="/addUser", method=RequestMethod.POST)
 	public String addUser( @ModelAttribute("user") User user ) throws Exception {
 
-		System.out.println("/addUser.do");
+		System.out.println("/addUser method = POST");
 		//Business Logic
 		userService.addUser(user);
 		
@@ -69,7 +69,7 @@ public class UserController {
 	@RequestMapping(value="/getUser", method=RequestMethod.GET)
 	public String getUser( @RequestParam("userId") String userId , Model model ) throws Exception {
 		
-		System.out.println("/getUser.do");
+		System.out.println("/getUser method = GET");
 		//Business Logic
 		User user = userService.getUser(userId);
 		// Model 과 View 연결
@@ -81,7 +81,7 @@ public class UserController {
 	@RequestMapping(value="/updateUser", method=RequestMethod.GET)
 	public String updateUser( @RequestParam("userId") String userId , Model model ) throws Exception{
 
-		System.out.println("/updateUserView.do");
+		System.out.println("/updateUser method = GET");
 		//Business Logic
 		User user = userService.getUser(userId);
 		// Model 과 View 연결
@@ -93,7 +93,7 @@ public class UserController {
 	@RequestMapping(value="/updateUser", method=RequestMethod.POST)
 	public String updateUser( @ModelAttribute("user") User user , Model model , HttpSession session) throws Exception{
 
-		System.out.println("/updateUser.do");
+		System.out.println("/updateUser method = POST");
 		//Business Logic
 		userService.updateUser(user);
 		
@@ -108,7 +108,7 @@ public class UserController {
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login() throws Exception{
 		
-		System.out.println("/loginView.do");
+		System.out.println("/login method = GET");
 
 		return "redirect:/user/loginView.jsp";
 	}
@@ -116,7 +116,7 @@ public class UserController {
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(@ModelAttribute("user") User user , HttpSession session ) throws Exception{
 		
-		System.out.println("/login.do");
+		System.out.println("/login method = POST");
 		//Business Logic
 		User dbUser=userService.getUser(user.getUserId());
 		
@@ -130,7 +130,7 @@ public class UserController {
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session ) throws Exception{
 		
-		System.out.println("/logout.do");
+		System.out.println("/logout method = GET");
 		
 		session.invalidate();
 		
@@ -140,7 +140,7 @@ public class UserController {
 	@RequestMapping(value="/checkDuplication", method=RequestMethod.POST)
 	public String checkDuplication( @RequestParam("userId") String userId , Model model ) throws Exception{
 		
-		System.out.println("/checkDuplication.do");
+		System.out.println("/checkDuplication method = POST");
 		//Business Logic
 		boolean result=userService.checkDuplication(userId);
 		// Model 과 View 연결
@@ -153,7 +153,7 @@ public class UserController {
 	@RequestMapping(value="/listUser")
 	public String listUser( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
 		
-		System.out.println("/listUser.do");
+		System.out.println("/listUser method = GET/POST");
 		
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
