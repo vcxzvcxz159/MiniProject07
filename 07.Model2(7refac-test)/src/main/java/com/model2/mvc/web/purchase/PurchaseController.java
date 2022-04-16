@@ -165,8 +165,8 @@ public class PurchaseController {
 	}
 	
 	@RequestMapping(value="/updatePurchase", method=RequestMethod.GET)
-	public ModelAndView updatePurchase(@RequestAttribute("prodNo") int prodNo,
-								 	   @RequestAttribute("tranNo") int tranNo,
+	public ModelAndView updatePurchase(@RequestParam("prodNo") int prodNo,
+								 	   @RequestParam("tranNo") int tranNo,
 								 	   HttpSession session) throws Exception{
 		
 		System.out.println("/updatePurchase.do");
@@ -191,7 +191,7 @@ public class PurchaseController {
 	
 	@RequestMapping(value="/updatePurchase", method=RequestMethod.POST)
 	public ModelAndView updatePurchase(@ModelAttribute("purchase") Purchase purchase,
-						@ModelAttribute("prodcut") Product prdocut,
+						@ModelAttribute("product") Product prdocut,
 							  HttpSession session) throws Exception{
 		
 		System.out.println("/updatePurchaseView.do");
@@ -229,7 +229,22 @@ public class PurchaseController {
 		// Model °ú View ¿¬°á
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("menu", menu);
-		modelAndView.setViewName("forward:/listProduct.do");
+		modelAndView.setViewName("forward:/product/listProduct");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/deletePurchase", method=RequestMethod.GET)
+	public ModelAndView deletePurchsae(@RequestParam("tranNo") int tranNo) throws Exception {
+		
+		System.out.println("/deletePurchase method = GET");
+		
+		// B/L
+		purchaseService.deletePurchase(tranNo);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.setViewName("forward:/purchase/listPurchase");
 		
 		return modelAndView;
 	}

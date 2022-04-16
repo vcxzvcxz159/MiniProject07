@@ -71,9 +71,12 @@
 		<td class="ct_list_b">배송현황</td>
 		<td class="ct_line02"></td>
 		<td class="ct_list_b">정보수정</td>
+		<td class="ct_line02"></td>
+		<td class="ct_list_b">구매취소</td>
+		<td class="ct_line02"></td>
 	</tr>
 	<tr>
-		<td colspan="11" bgcolor="808285" height="1"></td>
+		<td colspan="13" bgcolor="808285" height="1"></td>
 	</tr>
 	
 	<c:set var="i" value="0" />
@@ -116,9 +119,20 @@
 					<a href="/purchase/updateTranCode?prodNo=${purchase.purchaseProd.prodNo}&tranCode=3&menu=search">배송완료</a>
 			</c:if>
 			</td>
+			<td></td>
+			<c:if test="${fn:trim(purchase.tranCode) == '1'}">
+				<td align="left">
+					<a href="/purchase/deletePurchase?tranNo=${purchase.tranNo}">취소</a>
+				</td>
+			</c:if>
+			<c:if test="${fn:trim(purchase.tranCode) != '1'}">
+				<td align="left">
+					취소가 불가능합니다.
+				</td>
+			</c:if>
 		</tr>
 		<tr>
-			<td colspan="11" bgcolor="D6D7D6" height="1"></td>
+			<td colspan="13" bgcolor="D6D7D6" height="1"></td>
 		</tr>
 	</c:forEach>
 </table>

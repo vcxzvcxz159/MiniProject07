@@ -11,6 +11,7 @@ import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.product.ProductDao;
+import com.model2.mvc.service.product.ProductService;
 import com.model2.mvc.service.product.impl.ProductDaoImpl;
 import com.model2.mvc.service.purchase.PurchaseDao;
 import com.model2.mvc.service.purchase.PurchaseService;
@@ -84,6 +85,18 @@ public class PurchaseServiceImpl implements PurchaseService{
 	@Override
 	public void UpdateTranCode(Purchase purchase)throws Exception {
 		
+	}
+	
+	@Override
+	public int deletePurchase(int tranNo) throws Exception{
+		Purchase purchase = purchaseDao.findPurchase(tranNo);
+		Product product = prodDAO.findProduct(purchase.getPurchaseProd().getProdNo());
+		product.setQuantity(product.getQuantity() + purchase.getQuantity());
+		
+		// product 수량 변경
+		prodDAO.updateProduct(product);
+		
+		return purchaseDao.deletePurchase(tranNo);
 	}
 	
 }

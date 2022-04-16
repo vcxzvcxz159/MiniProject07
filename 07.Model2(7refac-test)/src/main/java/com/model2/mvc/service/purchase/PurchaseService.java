@@ -18,4 +18,6 @@ public interface PurchaseService {
 	public Purchase updatePurchase(Purchase purchase)throws Exception;
 	
 	public void UpdateTranCode(Purchase purchase)throws Exception;
+	
+	public int deletePurchase(int tranNo) throws Exception;
 }

@@ -141,7 +141,7 @@
   	
   	<!-- DELETE PURCHASE -->
   	<delete id="deletePurchase"
-  			parameterType="purchase">
+  			parameterType="int">
   		DELETE FROM transaction
   		WHERE tran_no = #{tranNo}
   	</delete>
