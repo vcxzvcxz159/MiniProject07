@@ -102,7 +102,7 @@
 					구매완료 
 				</c:if>
 				<c:if test="${fn:trim(purchase.tranCode) == '2'}">
-					배송중인 
+					배송중인
 				</c:if>
 				<c:if test="${fn:trim(purchase.tranCode) == '3'}">
 				 	배송완료 
@@ -116,7 +116,7 @@
 			</c:if>
 				
 			<c:if test="${fn:trim(purchase.tranCode) == '2'}">
-					<a href="/purchase/updateTranCode?prodNo=${purchase.purchaseProd.prodNo}&tranCode=3&menu=search">배송완료</a>
+					<a href="/purchase/updateTranCode?tranNo=${purchase.tranNo}&tranCode=3&menu=search">배송완료</a>
 			</c:if>
 			</td>
 			<td></td>

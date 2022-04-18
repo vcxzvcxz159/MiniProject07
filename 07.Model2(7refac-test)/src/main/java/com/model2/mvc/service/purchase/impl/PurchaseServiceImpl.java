@@ -84,7 +84,9 @@ public class PurchaseServiceImpl implements PurchaseService{
 
 	@Override
 	public void UpdateTranCode(Purchase purchase)throws Exception {
-		
+		Purchase oldpurchase = purchaseDao.findPurchase(purchase.getTranNo());
+		oldpurchase.setTranCode(purchase.getTranCode());
+		purchaseDao.updateTranCode(oldpurchase);
 	}
 	
 	@Override

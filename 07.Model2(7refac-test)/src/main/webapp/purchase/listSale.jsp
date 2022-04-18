@@ -96,7 +96,7 @@
 		<td></td>
 		<td align="left">현재 
 			<c:if test="${fn:trim(purchase.tranCode) == '1'}">
-				구매완료 <c:if test=""><a href="">배송시작</a></c:if>
+				구매완료 
 			</c:if>
 			<c:if test="${fn:trim(purchase.tranCode) == '2'}">
 				배송중인 
@@ -106,7 +106,16 @@
 			 </c:if>
 		상태 입니다.</td>      
 		<td></td>
-		<td align="left"> :)
+		<td align="left">
+			<c:if test="${fn:trim(purchase.tranCode) == '1'}">
+				<a href="/purchase/updateTranCode?tranNo=${purchase.tranNo}&tranCode=2&menu=manage">배송시작</a>
+			</c:if>
+			<c:if test="${fn:trim(purchase.tranCode) == '2'}">
+				배송중
+			</c:if>
+			<c:if test="${fn:trim(purchase.tranCode) == '3'}">
+			 	배송완료 
+			 </c:if>
 			
 		</td>
 	</tr>

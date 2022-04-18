@@ -141,7 +141,7 @@ public class PurchaseController {
 	@RequestMapping(value="/listSale")
 	public ModelAndView listSale( @ModelAttribute("search") Search search) throws Exception{
 
-		System.out.println("/updateUser.do");
+		System.out.println("/listSale");
 		
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
@@ -216,20 +216,25 @@ public class PurchaseController {
 	}
 	
 	@RequestMapping(value="/updateTranCode", method=RequestMethod.GET)
-	public ModelAndView updateTranCode(@ModelAttribute("product") Product product,
-									   @ModelAttribute("purchase") Purchase purchase,
+	public ModelAndView updateTranCode( @ModelAttribute("purchase") Purchase purchase,
 									   @RequestParam("menu") String menu ) throws Exception{
 		
-		System.out.println("/updateTranCode.do");
+		System.out.println("/updateTranCode");
 		
 		//Business Logic
-		purchase.setPurchaseProd(product);
 		purchaseService.UpdateTranCode(purchase);
 		
+		System.out.println("updateTranCode menu : " + menu);
+		
 		// Model °ú View ¿¬°á
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("menu", menu);
-		modelAndView.setViewName("forward:/product/listProduct");
+		ModelAndView modelAndView = new ModelAndView();		
+		
+		// Navigate
+		String navString="forward:/purchase/listPurchase";
+		if(menu.equals("manage")) {
+			navString = "forward:/purchase/listSale";
+		}
+		modelAndView.setViewName(navString);
 		
 		return modelAndView;
 	}
@@ -243,6 +248,7 @@ public class PurchaseController {
 		purchaseService.deletePurchase(tranNo);
 		
 		ModelAndView modelAndView = new ModelAndView();
+		
 		
 		modelAndView.setViewName("forward:/purchase/listPurchase");
 		
