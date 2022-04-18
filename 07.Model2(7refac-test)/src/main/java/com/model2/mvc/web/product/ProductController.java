@@ -1,9 +1,11 @@
 package com.model2.mvc.web.product;
 
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
@@ -30,6 +33,8 @@ public class ProductController {
 	@Qualifier("productServiceImpl")
 	private ProductService productService;
 	//setter Method 구현 않음
+	
+	private Logger logger = LoggerFactory.getLogger(Product)
 		
 	public ProductController(){
 		System.out.println(this.getClass());
@@ -45,6 +50,8 @@ public class ProductController {
 	//@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
+	@Value("#{commonProperties['file.path']}")
+	String file_Path;
 	
 	@RequestMapping(value="/addProduct", method=RequestMethod.GET)
 	public String addProduct() throws Exception {
@@ -55,9 +62,14 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/addProduct", method=RequestMethod.POST)
-	public String addProduct(@ModelAttribute("product")Product product, Model model) throws Exception {
+	public String addProduct(@ModelAttribute("product")Product product,
+							 @RequestParam("fileName") MultipartFile fileName,
+							 Model model) throws Exception {
 
 		System.out.println("/addProduct method = GET");
+		
+		logger.info("fileUpload={}",fileName);
+		String uuid = UUID.randomUUID().toString();
 		
 		productService.addProduct(product);
 		

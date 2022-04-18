@@ -84,6 +84,9 @@
    	<mvc:resources mapping="/javascript/**" location="/javascript/" />
 	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	
+	<!-- image upload를 위한 MultipartResolver 생성 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
+	
 
 	<!-- 	:: exception resolver  선언 :: 서술적 / 선언적 예외처리 
 			:: Servlet 에서의 선언적 예외처리를 다시 생각하며....  -->
