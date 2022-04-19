@@ -1,16 +1,19 @@
 package com.model2.mvc.web.product;
 
+import java.io.File;
 import java.util.Map;
-import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,7 +37,6 @@ public class ProductController {
 	private ProductService productService;
 	//setter Method 구현 않음
 	
-	private Logger logger = LoggerFactory.getLogger(Product)
 		
 	public ProductController(){
 		System.out.println(this.getClass());
@@ -50,8 +52,12 @@ public class ProductController {
 	//@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
-	@Value("#{commonProperties['file.path']}")
-	String file_Path;
+	// image upload
+	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);	
+	
+	@Resource(name="uploadPath")
+	String uploadPath;
+	
 	
 	@RequestMapping(value="/addProduct", method=RequestMethod.GET)
 	public String addProduct() throws Exception {
@@ -63,14 +69,21 @@ public class ProductController {
 	
 	@RequestMapping(value="/addProduct", method=RequestMethod.POST)
 	public String addProduct(@ModelAttribute("product")Product product,
-							 @RequestParam("fileName") MultipartFile fileName,
+							 @RequestParam("file") MultipartFile file,
 							 Model model) throws Exception {
 
-		System.out.println("/addProduct method = GET");
+		System.out.println("/addProduct method = POST");
 		
-		logger.info("fileUpload={}",fileName);
-		String uuid = UUID.randomUUID().toString();
+		String savedName = file.getOriginalFilename();
 		
+		System.out.println("OriginalFilename() : " + savedName);
+		System.out.println("uploadPath : " +uploadPath);
+		
+		File target = new File(uploadPath, savedName);
+		
+		FileCopyUtils.copy(file.getBytes(), target);
+		
+		product.setFileName(savedName);
 		productService.addProduct(product);
 		
 		model.addAttribute("product", product);
