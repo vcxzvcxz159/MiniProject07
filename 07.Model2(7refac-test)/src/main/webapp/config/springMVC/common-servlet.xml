@@ -90,7 +90,7 @@
 	</bean>
 	
 	<bean id="uploadPath" class="java.lang.String">
-		<constructor-arg value="C:\Users\vcxzv\git\MiniProject07\07.Model2(7refac-test)\src\main\webapp\images\uploadFiles"/>
+		<constructor-arg value="C:\Users\bitcamp\git\MiniProject07\07.Model2(7refac-test)\src\main\webapp\images\uploadFiles"/>
 	</bean>
 	
 
